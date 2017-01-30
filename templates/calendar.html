@@ -1,0 +1,32 @@
+<div class="header">
+    <i class="fa fa-angle-left" ng-click="previous()"></i>
+    <span>{{month.format("MMMM, YYYY")}}</span>
+    <i class="fa fa-angle-right" ng-click="next()"></i>
+</div>
+<div class="week names">
+    <span class="day">Sun</span>
+    <span class="day">Mon</span>
+    <span class="day">Tue</span>
+    <span class="day">Wed</span>
+    <span class="day">Thu</span>
+    <span class="day">Fri</span>
+    <span class="day">Sat</span>
+</div>
+<div class="week" ng-repeat="week in weeks">
+    <span class="day" ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, available: day.isAvailable, selected: day.isSelected }"
+    ng-mousedown="mouseDownSelect(day)" ng-mouseover="mouseOverSelect(day)" ng-mouseup="mouseUpSelect(day)"
+     ng-repeat="day in week.days">
+     {{day.number}}
+     <div class="price" ng-show="day.price">${{ day.price }}</div>
+   </span>
+</div>
+<div class="modal" ng-show="modal">
+  <div class="modal-content">
+    <p>Set selected dates to be available:</p>
+    <form>
+      <input type="number" name="price" ng-model="price" placeholder="Enter price in $">
+      <button type="button" name="cancel" ng-click="cancel()">Cancel</button>
+      <button type="button" name="submit" ng-click="submit()">Submit</button>
+    </form>
+  </div>
+</div>
