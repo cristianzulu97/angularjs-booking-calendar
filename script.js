@@ -32,10 +32,10 @@ var app = angular.module("bCal", []);
 
                   scope.mouseDownSelect = function(day) {
                     if (!scope.modal) {
-                      _clearSelection(scope);
                       scope.daySelected = day;
                       day.isSelected = true;
-                      scope.selectedDays.dates = [{ date: day.date }];
+                      _clearSelection(scope);
+                      scope.selectedDays.dates = [{ date: day.date.format('YYYY MM D') }];
                     }
                   };
 
@@ -189,8 +189,8 @@ var app = angular.module("bCal", []);
           }
 
           function _updateDates(scope, $http){
-            scope.test = { dates: scope.selectedDays.dates };
-            $http.post('dates.php', scope.test).then(function (response){
+            scope.postDates = { dates: scope.selectedDays.dates };
+            $http.post('dates.php', scope.postDates).then(function (response){
               scope.dates = response.data;
               _clearSelection(scope);
               _clearAvailable(scope);
